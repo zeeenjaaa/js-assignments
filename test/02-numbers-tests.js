@@ -1,6 +1,7 @@
 'use strict';
 
 var assert = require('assert');
+var lint = require('mocha-eslint');
 var tasks = require('../task/02-numbers-tasks');
 it.optional = require('../extensions/it-optional');
 
@@ -100,4 +101,20 @@ describe('02-numbers-tasks', function() {
         assert.equal(tasks.toNumber(new Number(42), 0), 42);
         assert.equal(tasks.toNumber(undefined, -1), -1);
     });
+
+
+    var paths = [
+        'task/02-numbers-tasks.js'
+    ];
+
+    var options = {
+        formatter: 'compact',  // Defaults to `stylish`
+        alwaysWarn: false,  // Defaults to `true`, always show warnings
+        timeout: 5000,  // Defaults to the global mocha `timeout` option
+        slow: 1000,  // Defaults to the global mocha `slow` option
+        strict: true,  // Defaults to `false`, only notify the warnings
+        contextName: 'eslint',  // Defaults to `eslint`, but can be any string
+    };
+
+    lint(paths, options);
 });
