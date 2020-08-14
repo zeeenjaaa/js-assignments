@@ -30,7 +30,7 @@
  *
  */
 function getFizzBuzz(num) {
- return num % 15 == 0 ? 'FizzBuzz': num % 3 == 0 ? 'Fizz': num % 5 == 0 ?'Buzz': num; 
+ return num % 15 === 0 ? 'FizzBuzz': num % 3 === 0 ? 'Fizz': num % 5 === 0 ?'Buzz': num; 
 }
 
 
@@ -176,10 +176,9 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-   // throw new Error('Not implemented');
     let ans;
     for (let i = 0 ; i < str.length; i++){
-        if( str.lastIndexOf(str[i]) == str.indexOf(str[i])){
+        if( str.lastIndexOf(str[i]) === str.indexOf(str[i])){
             ans = str[i];
             break;
             }
@@ -211,7 +210,9 @@ return ans;
  *
  */
 function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
-  return `${isStartIncluded?'[':'('}${a>b?b:a}, ${a>b?a:b}${isEndIncluded?']':')'}`
+  // if style problem in whitespaces - I've fixed.
+  // if problem reason in 'one string answer' - I will write more detailed in future.
+  return `${isStartIncluded ? '[' : '(' }${a > b ? b : a}, ${a > b ? a : b}${isEndIncluded ? ']' : ')' }`
 }
 
 
@@ -429,26 +430,25 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) { 
-  let ans =[];
+  let ans = [];
   let firstString = pathes[0].split('/');
   let counter = 1;  
 
   for (let i = 0; i < firstString.length; i++){
 
-    for (let j =1; j< pathes.length; j++){
+    for (let j = 1; j < pathes.length; j++){
 
       let otherString = pathes[j].split('/');  
-      firstString[i]==otherString[i]? counter++:counter=1;
-      if(counter==pathes.length){
-        ans[i]=firstString[i];
-        counter=1;
+      firstString[i] === otherString[i] ? counter++ :counter=1;
+      if(counter == pathes.length){
+        ans[i] = firstString[i];
+        counter = 1;
       }
     }
   }
   
   ans.length >= 1 ? ans.push(''):0;
-return ans.join('/');
- 
+return ans.join('/'); 
 }
 
 
@@ -517,26 +517,27 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-   let tmpArr = position;
-   let wins  =[[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6],[0,3,6],[1,4,7],[2,5,8]];
+  let tmpArr = position;
+  let wins  = [[0,1,2],[3,4,5],[6,7,8],[0,4,8],[2,4,6],[0,3,6],[1,4,7],[2,5,8]];
     
-   for (let i = 0; i < 3; i++){
+  for (let i = 0; i < 3; i++){
     for (let j = 0; j < 3; j++){
-      if( tmpArr[i][j] != 'X' && tmpArr[i][j] != '0'){
+      if( tmpArr[i][j] !== 'X' && tmpArr[i][j] !== '0'){
         tmpArr[i][j] = 'L';
       }
     }
-   }
+  }
+
   tmpArr= tmpArr.flat();
   wins = wins.flat(); 
-   for (let i = 0; i < wins.length; i=i+3){
-    if(tmpArr[wins[i]] =='X' && tmpArr[wins[i+1]] == 'X' && tmpArr[wins[i+2]] == 'X'){
+  for (let i = 0; i < wins.length; i = i + 3 ){
+    if(tmpArr[wins[i]] ==='X' && tmpArr[wins[i+1]] === 'X' && tmpArr[wins[i+2]] === 'X'){
       return 'X'
     }
-    if(tmpArr[wins[i]] =='0' && tmpArr[wins[i+1]] == '0' && tmpArr[wins[i+2]] == '0'){
+    if(tmpArr[wins[i]] ==='0' && tmpArr[wins[i+1]] === '0' && tmpArr[wins[i+2]] === '0'){
       return '0'
     }  
-    }
+  }
 return undefined
 }
 
