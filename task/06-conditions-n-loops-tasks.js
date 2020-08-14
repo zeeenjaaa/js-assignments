@@ -337,10 +337,10 @@ function isBracketsBalanced(str) {
         }        
         else {
             let last = stack.pop();
-            if (str[i] !== map[last]) {return false};
+            if (str[i] !== map[last]) {return false}
         }
     }
-        if (stack.length !== 0) {return false};
+        if (stack.length !== 0) {return false}
     return true;  
 }
 
@@ -440,7 +440,7 @@ function getCommonDirectoryPath(pathes) {
 
       let otherString = pathes[j].split('/');  
       firstString[i] === otherString[i] ? counter++ :counter=1;
-      if(counter == pathes.length){
+      if(counter === pathes.length){
         ans[i] = firstString[i];
         counter = 1;
       }
