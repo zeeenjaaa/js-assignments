@@ -1,5 +1,7 @@
 'use strict';
 
+const co = require("co");
+
 /********************************************************************************************
  *                                                                                          *
  * Plese read the following tutorial before implementing tasks:                             *
@@ -205,10 +207,30 @@ function* mergeSortedSequences(source1, source2) {
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
 function async(generator) {
-  let co = require('co');
-  return co(generator);
-}
+  const thisGenerator = generator.call(this);
 
+  try {
+    return make(thisGenerator.next())
+  } 
+  catch (err) {
+    return Promise.reject(err)
+  }  
+
+  function make(result) {
+    if (result.done){
+      return Promise.resolve(result.value);
+    } 
+
+    return Promise.resolve(result.value).then(
+      function (res) {
+        return make(thisGenerator.next(res))
+      },
+      function (err) {
+        return make(thisGenerator.throw(err))
+      }      
+    )
+  }
+}
 
 module.exports = {
     get99BottlesOfBeer: get99BottlesOfBeer,
